@@ -108,7 +108,7 @@
                                 {{$translate->translation}}
                             </td>
                             <td class="px-6 py-4">
-                                {{\App\Models\User::getRoleName($user->role)}}
+                                {{$item->locked_by}}
                             </td>
                             <td class="px-6 py-4">
                                 {{$item->price}}
