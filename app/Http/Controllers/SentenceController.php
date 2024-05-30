@@ -167,12 +167,13 @@ class SentenceController extends Controller
         $sentences = Sentence::query()->where('locked_by', '!=', null)->get();
         $users = User::all();
 
+        $lockedUser = [];
         foreach ($sentences as $sentence) {
             $lockedUser = User::query()->where('id', $sentence->locked_by)->get();
         }
 
 
-        $lockedUser = [];
+
         return view('sentence-moderate', [
             'sentences' => $sentences,
             'users' => $users,
