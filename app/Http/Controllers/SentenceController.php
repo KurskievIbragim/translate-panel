@@ -98,12 +98,15 @@ class SentenceController extends Controller
             $translates = Translate::query()->where('sentence_id', $translate->id)->get();
         }
 
+        $sentences = Sentence::all();
+
 
         return view('translate', [
             'sentence' => $sentence,
             'sentencesTranslate' => $sentencesTranslate,
             'translates' => $translates,
             'users' => $users,
+            'sentences' => $sentences
         ]);
     }
 
