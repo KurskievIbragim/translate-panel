@@ -102,16 +102,11 @@ class SentenceController extends Controller
         }
 
 
-        if(\auth()->user()->role === 3) {
+        if(\auth()->user()->role) {
             $completedSentences = Translate::query()->where('user_id', \auth()->user()->id)->get();
         }
 
         $deletedSentences = Translate::query()->where('deleted_at', '!=', null)->get();
-
-
-
-
-
 
 
 
