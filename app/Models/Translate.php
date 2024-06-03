@@ -20,4 +20,8 @@ class Translate extends Model
         'sentence_id',
         'user_id',
     ];
+    public function sentence()
+    {
+        return $this->belongsTo(Sentence::class, 'sentence_id');
+    }
 }

@@ -33,5 +33,49 @@ class HomeController extends Controller
         DB::table('sentences')->delete();
     }
 
+    public function completedSentences()
+    {
+        $sentencesTranslateCompleted = Sentence::query()->where('status', 2)->orderBy('id', 'desc')->paginate(10);
+
+
+        return view('sentences.completed', compact('sentencesTranslateCompleted'));
+    }
+
+    public function search(Request $request)
+    {
+
+        $query = $request->input('search');
+
+
+
+        // Поиск по предложениям
+        $sentences = Sentence::query()
+            ->where('sentence', 'LIKE', "%{$query}%")
+            ->orderBy('id', 'desc')
+            ->get();
+
+        // Поиск по переводам со статусом 1
+        $sentencesTranslate = Sentence::query()
+            ->where('status', 1)
+            ->where('sentence', 'LIKE', "%{$query}%")
+            ->orderBy('id', 'desc')
+            ->paginate(10);
+
+        // Поиск по переводам со статусом 2
+        $sentencesTranslateCompleted = Sentence::query()
+            ->where('status', 2)
+            ->where('sentence', 'LIKE', "%{$query}%")
+            ->orderBy('id', 'desc')
+            ->paginate(10);
+
+        $translates = [];
+
+        foreach ($sentencesTranslate as $translate) {
+            $translates = Translate::query()->where('sentence_id', $translate->id)->get();
+        }
+
+        return view('sentences.search', compact('sentences', 'sentencesTranslate', 'sentencesTranslateCompleted', 'query', 'translates'));
+    }
+
 
 }

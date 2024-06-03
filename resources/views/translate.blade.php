@@ -46,26 +46,24 @@
 
     @if(auth()->user()->role == 3)
 
-            <div class="container">
-                <div class="teacher-stat mt-6 mb-8">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-                <form method="POST" action="{{ route('translate.save') }}" class="flex justify-center">
+
+
+            <div class="container mx-auto p-6">
+
+                <form method="POST" action="{{ route('translate.save') }}" class="flex justify-center px-6">
                     @csrf
 
-                    <div class="w-1/3 mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600 ">
+                    <div class="w-1/2 mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600 ">
                         <select name="sentence_id" style="opacity: 0;">
                             <option value="{{$sentence->id}}">{{$sentence->id}}</option>
                         </select>
-                        <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
+                        <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800 ">
                             <label for="comment" class="sr-only">Оригинал предложение</label>
                             <textarea id="comment" rows="4" class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="" readonly>{{ $sentence->sentence }}</textarea>
                         </div>
                     </div>
 
-                    <div class="w-1/3 mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600 ml-6">
+                    <div class="w-1/2 mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600 ml-6">
                         <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
                             <label for="comment" class="sr-only">Введите предложение</label>
                             <textarea id="comment" rows="4" class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Write a comment..." name="translation" required ></textarea>
@@ -83,6 +81,41 @@
                         </div>
                     </div>
                 </form>
+            </div>
+
+
+            <div class="container mx-auto p-6 flex justify-between">
+                <div class="bg-white p-6 rounded shadow-md mx-8 w-1/3 flex justify-between items-center">
+                    <div>
+                        Переведено <strong class="text-green-900 focus:text-red-600 ...">{{$completedSentences->count()}}</strong> предложений!
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded shadow-md  w-1/3 mx-8 flex justify-between items-center">
+                    <div>
+                        Отклонено <strong class="text-green-900 focus:text-red-600 ...">{{$deletedSentences->count()}}</strong>
+                    </div>
+                    <div>
+                        <a href="{{route('users.index')}}" class="flex flex-col items-center" style="cursor: pointer;">
+                            <img src="{{asset('img/icons/arrowright.svg')}}" alt="" style="width: 130px; height: 40px;">
+                            <span style="color: rgb(26 86 219)">показать</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded shadow-md  w-1/3 mx-8 flex justify-between items-center">
+                    <div>
+                        Сумма: <strong class="text-green-900 focus:text-red-600 ..."></strong>
+                    </div>
+                    <div>
+                        <a class="flex flex-col items-center" style="cursor: pointer;">
+                            <img src="{{asset('img/icons/arrowright.svg')}}" alt="" style="width: 130px; height: 40px;">
+                            <span style="color: rgb(26 86 219)">показать</span>
+                        </a>
+                    </div>
+                </div>
+
+
             </div>
 
 

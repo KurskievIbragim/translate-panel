@@ -26,8 +26,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/sentences/{sentence}/approve', [SentenceController::class, 'approveTranslation'])->name('sentences.approve');
     Route::post('/sentences/{sentence}/reject', [SentenceController::class, 'rejectTranslation'])->name('sentences.reject');
     Route::get('/sentences/moderating', [SentenceController::class, 'moderate'])->name('sentence.moderate');
+    Route::get('/sentences/completed', [HomeController::class, 'completedSentences'])->name('sentence.completed');
     Route::patch('/sentences/{sentence}', [SentenceController::class, 'resetTeacherSentence'])->name('sentence.update');
     Route::delete('/sentences', [HomeController::class, 'deleteSentences'])->name('sentences.delete');
+    Route::get('/search', [HomeController::class, 'search'])->name('sentences.search');
+
 
 
     Route::get('/users', [UserController::class, 'index'])->name('users.index');

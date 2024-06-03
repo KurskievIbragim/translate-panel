@@ -53,7 +53,7 @@
                         Переведено: <strong class="text-green-900 focus:text-red-600 ...">{{$sentencesTranslateCompleted->count()}}</strong>
                     </div>
                     <div>
-                        <a class="flex flex-col items-center" style="cursor: pointer;">
+                        <a class="flex flex-col items-center" style="cursor: pointer;" href="{{route('sentence.completed')}}">
                             <img src="{{asset('img/icons/arrowright.svg')}}" alt="" style="width: 130px; height: 40px;">
                             <span style="color: rgb(26 86 219)">показать</span>
                         </a>
@@ -69,7 +69,27 @@
 
     @if(auth()->user()->role === 1)
         <div class="container mx-auto p-6 flex flex-col justify-between mx-8">
-            <h3 class="mb-8 px-6">Предложения в процессе {{$sentencesTranslate->count()}}:</h3>
+            <div class="flex items-center w-full justify-between">
+                <div>
+                    <h3 class="mb-8 px-6">Предложения в процессе {{$sentencesTranslate->count()}}:</h3>
+                </div>
+                <div>
+                    <form class="flex items-center max-w-sm mx-auto p-6" action="{{ route('sentences.search') }}" method="GET">
+                        @csrf
+                        <label for="simple-search" class="sr-only">Search</label>
+                        <div class="relative w-full">
+
+                            <input type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Введите для поиска..." required name="search"/>
+                        </div>
+                        <button type="submit" class="p-2.5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                            </svg>
+                            <span class="sr-only">Найти</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
             <div class="relative overflow-x-auto px-6 ">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

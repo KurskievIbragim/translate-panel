@@ -23,5 +23,11 @@ class Sentence extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    public function translations()
+    {
+        return $this->hasMany(Translate::class, 'sentence_id');
+    }
+
+
 
 }

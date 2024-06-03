@@ -7,6 +7,8 @@ use App\Http\Requests\User\UpdateUserRoleRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\DB;
+
 class UserController extends Controller
 {
     public function index()
@@ -14,10 +16,9 @@ class UserController extends Controller
         $users = User::all();
         $roles = User::getRoles();
 
-        return view('home.users.users', [
-            'users' => $users,
-            'roles' => $roles
-        ]);
+
+
+        return view('home.users.users', compact('users', 'roles'));
     }
 
     public function edit(User $user)

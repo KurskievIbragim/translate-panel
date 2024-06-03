@@ -62,6 +62,8 @@ class SentenceController extends Controller
     {
         $sentence = null;
 
+        $sentences = Sentence::all();
+
         // Проверяем, есть ли предложение в сеансе
         if (Session::has('current_sentence_id')) {
             $sentenceId = Session::get('current_sentence_id');
@@ -96,9 +98,21 @@ class SentenceController extends Controller
         $translates = [];
         foreach ($sentencesTranslate as $translate) {
             $translates = Translate::query()->where('sentence_id', $translate->id)->get();
+
         }
 
-        $sentences = Sentence::all();
+
+        if(\auth()->user()->role === 3) {
+            $completedSentences = Translate::query()->where('user_id', \auth()->user()->id)->get();
+        }
+
+        $deletedSentences = Translate::query()->where('deleted_at', '!=', null)->get();
+
+
+
+
+
+
 
 
         return view('translate', [
@@ -106,9 +120,13 @@ class SentenceController extends Controller
             'sentencesTranslate' => $sentencesTranslate,
             'translates' => $translates,
             'users' => $users,
-            'sentences' => $sentences
+            'sentences' => $sentences,
+            'completedSentences' => $completedSentences,
+            'deletedSentences' => $deletedSentences,
         ]);
     }
+
+
 
     public function saveTranslation(Request $request)
     {
