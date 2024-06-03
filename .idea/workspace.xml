@@ -5,17 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c3be3189-868f-464a-83a0-79ccd12efb2b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/sentences/completed.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/sentences/search.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Home/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Home/UserController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SentenceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SentenceController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Sentence.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Sentence.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Translate.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Translate.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/translate.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/translate.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -216,7 +207,7 @@
       <workItem from="1717411657218" duration="1000" />
       <workItem from="1717411681697" duration="1408000" />
       <workItem from="1717419524053" duration="1174000" />
-      <workItem from="1717439567562" duration="3232000" />
+      <workItem from="1717439567562" duration="4063000" />
     </task>
     <servers />
   </component>

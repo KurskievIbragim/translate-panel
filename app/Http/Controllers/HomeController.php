@@ -35,10 +35,18 @@ class HomeController extends Controller
 
     public function completedSentences()
     {
+
+        $sentencesTranslate = Sentence::query()->where('status', 1)->orderBy('id', 'desc')->paginate(10);
+
+        $translates = [];
+
+        foreach ($sentencesTranslate as $translate) {
+            $translates = Translate::query()->where('sentence_id', $translate->id)->get();
+        }
         $sentencesTranslateCompleted = Sentence::query()->where('status', 2)->orderBy('id', 'desc')->paginate(10);
 
 
-        return view('sentences.completed', compact('sentencesTranslateCompleted'));
+        return view('sentences.completed', compact('sentencesTranslateCompleted', 'translates'));
     }
 
     public function search(Request $request)
