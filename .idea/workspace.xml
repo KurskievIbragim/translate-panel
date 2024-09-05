@@ -5,9 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c3be3189-868f-464a-83a0-79ccd12efb2b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/public/css/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SentenceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SentenceController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/sentences/completed.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/sentences/completed.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/assets/app-CrG2wnyX.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/build/assets/app-CrG2wnyX.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/assets/app-cNy9yCjt.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/build/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/home.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/translate.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/translate.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -209,6 +215,7 @@
       <workItem from="1717411681697" duration="1408000" />
       <workItem from="1717419524053" duration="1174000" />
       <workItem from="1717439567562" duration="4688000" />
+      <workItem from="1725525157035" duration="1843000" />
     </task>
     <servers />
   </component>

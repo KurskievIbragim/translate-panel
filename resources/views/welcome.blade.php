@@ -18,7 +18,7 @@
                 </form>
             </div>
         @else
-            <div class="container mx-auto p-6 flex justify-between">
+            <div class="container mx-auto p-6 flex justify-between card-container">
                 <div class="bg-white p-6 rounded shadow-md mx-8 w-1/3 flex justify-between items-center">
                     <div>
                         В базе <strong class="text-green-900 focus:text-red-600 ...">{{$sentences->count()}}</strong> предложений!

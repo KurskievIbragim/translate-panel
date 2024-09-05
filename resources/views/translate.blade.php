@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Дашборд</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body class="bg-gray-100">
@@ -14,7 +15,7 @@
     @if(auth()->user()->role == 1)
         @if($sentences->count() == 0)
             <div class="container mx-auto p-6">
-                <form id="uploadForm" action="{{ route('sentences.upload') }}" method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded shadow-md">
+                <form id="uploadForm" action="{{ route('sentences.upload') }}" method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded shadow-md translater-form">
                     @csrf
                     <div class="mb-4">
                         <label for="file" class="block text-gray-700 font-bold mb-2">Choose file:</label>
@@ -26,7 +27,7 @@
                 </form>
             </div>
         @else
-            <div class="container mx-auto p-6 flex justify-between">
+            <div class="container mx-auto p-6 flex justify-between card-container">
                 <div class="bg-white p-6 rounded shadow-md mx-8 w-1/3">
                     В базе <strong class="text-green-900 focus:text-red-600 ...">{{$sentences->count()}}</strong> предложений!
                 </div>
@@ -50,7 +51,7 @@
 
             <div class="container mx-auto p-6">
 
-                <form method="POST" action="{{ route('translate.save') }}" class="flex justify-center px-6">
+                <form method="POST" action="{{ route('translate.save') }}" class="flex justify-center px-6 translater-form">
                     @csrf
 
                     <div class="w-1/2 mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600 ">
@@ -84,7 +85,7 @@
             </div>
 
 
-            <div class="container mx-auto p-6 flex justify-between">
+            <div class="container mx-auto p-6 flex justify-between card-container">
                 <div class="bg-white p-6 rounded shadow-md mx-8 w-1/3 flex justify-between items-center">
                     <div>
                         Переведено <strong class="text-green-900 focus:text-red-600 ...">{{$completedSentences->count()}}</strong> предложений!
@@ -123,7 +124,7 @@
 
         @if(auth()->user()->role == 2)
             @if(isset($sentencesTranslate))
-                <div class="container mx-auto p-6 flex flex-col justify-between">
+                <div class="container mx-auto p-6 flex flex-col justify-between card-container">
                     <h3 class="mb-8">Предложения в процессе {{$sentencesTranslate->count()}}:</h3>
                     <div class="relative overflow-x-auto">
                         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
