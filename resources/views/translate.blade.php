@@ -163,11 +163,9 @@
                                     <td class="px-6 py-4">
                                         {{$item->sentence}}
                                     </td>
-                                    @if(isset($translate->translation))
-                                        <td class="px-6 py-4">
-                                            {{$translate->translation}}
-                                        </td>
-                                    @endif
+                                    <td class="px-6 py-4">
+                                        {{$translate->translation}}
+                                    </td>
                                     <td class="px-6 py-4">
                                         {{$item->locked_by}}
                                     </td>
