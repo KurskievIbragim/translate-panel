@@ -146,16 +146,12 @@
                                     Цена
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Переведен
-                                </th>
-                                <th scope="col" class="px-6 py-3">
                                     Действие
                                 </th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($sentencesTranslate as $item)
-                                @foreach($translates as $translate)
                                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{$item->id}}
@@ -164,7 +160,13 @@
                                         {{$item->sentence}}
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{$translate->translation}}
+                                        @if($item->translations->isNotEmpty())
+                                            @foreach($item->translations as $translation)
+                                                {{ $translation->translation }}<br>
+                                            @endforeach
+                                        @else
+                                            Нет перевода
+                                        @endif
                                     </td>
                                     <td class="px-6 py-4">
                                         {{$item->locked_by}}
@@ -189,7 +191,6 @@
                                         </form>
                                     </td>
                                 </tr>
-                                @endforeach
                             @endforeach
                             </tbody>
                         </table>
