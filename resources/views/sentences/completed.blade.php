@@ -55,7 +55,7 @@
                             {{$item->sentence}}
                         </td>
                         <td class="px-6 py-4">
-                            {{$translate->translation}}
+                            {{$item->translation}}
                         </td>
                         <td class="px-6 py-4">
                             {{$item->locked_by}}
