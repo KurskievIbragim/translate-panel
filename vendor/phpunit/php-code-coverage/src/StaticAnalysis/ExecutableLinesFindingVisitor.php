@@ -105,7 +105,6 @@ final class ExecutableLinesFindingVisitor extends NodeVisitorAbstract
             $node instanceof Node\Stmt\Use_ ||
             $node instanceof Node\Stmt\UseUse ||
             $node instanceof Node\Expr\ConstFetch ||
-            $node instanceof Node\Expr\Match_ ||
             $node instanceof Node\Expr\Variable ||
             $node instanceof Node\Expr\Throw_ ||
             $node instanceof Node\ComplexType ||
@@ -117,6 +116,33 @@ final class ExecutableLinesFindingVisitor extends NodeVisitorAbstract
             return;
         }
 
+        if ($node instanceof Node\Expr\Match_) {
+            foreach ($node->arms as $arm) {
+                $this->setLineBranch(
+                    $arm->body->getStartLine(),
+                    $arm->body->getEndLine(),
+                    ++$this->nextBranch,
+                );
+            }
+
+            return;
+        }
+
+        /*
+         * nikic/php-parser ^4.18 represents <code>throw</code> statements
+         * as <code>Stmt\Throw_</code> objects
+         */
+        if ($node instanceof Node\Stmt\Throw_) {
+            $this->setLineBranch($node->expr->getEndLine(), $node->expr->getEndLine(), ++$this->nextBranch);
+
+            return;
+        }
+
+        /*
+         * nikic/php-parser ^5 represents <code>throw</code> statements
+         * as <code>Stmt\Expression</code> objects that contain an
+         * <code>Expr\Throw_</code> object
+         */
         if ($node instanceof Node\Stmt\Expression && $node->expr instanceof Node\Expr\Throw_) {
             $this->setLineBranch($node->expr->expr->getEndLine(), $node->expr->expr->getEndLine(), ++$this->nextBranch);
 
