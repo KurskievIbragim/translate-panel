@@ -14,7 +14,7 @@ class HomeController extends Controller
     {
         $sentences = Sentence::all();
         $sentencesTranslate = Sentence::query()->with('translations')->where('status', 1)->orderBy('id', 'desc')->get();
-        $sentencesTranslateCompleted = Sentence::query()->where('status', 2)->orderBy('id', 'desc')->paginate(10);
+        $sentencesTranslateCompleted = Sentence::query()->with('translations')->where('status', 2)->orderBy('id', 'desc')->get();
 
         $users = User::query()->where('role', 3)->get();
 
@@ -31,21 +31,15 @@ class HomeController extends Controller
     {
 
 
-        $sentences = Sentence::all();
-        $sentencesTranslate = Sentence::query()->where('status', 1)->orderBy('id', 'desc')->paginate(10);
+
         $sentencesTranslateCompleted = Sentence::query()->where('status', 2)->orderBy('id', 'desc')->paginate(10);
 
         $users = User::query()->where('role', 3)->get();
 
 
-        $translates = [];
-
-        foreach ($sentencesTranslate as $translate) {
-            $translates = Translate::query()->with('translation')->where('sentence_id', $translate->id)->get();
-        }
 
 
-        return view('sentences.completed', compact('sentencesTranslateCompleted', 'translates', 'sentences', 'users'));
+        return view('sentences.completed', compact('sentencesTranslateCompleted', 'users'));
     }
 
     public function search(Request $request)

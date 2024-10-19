@@ -107,9 +107,6 @@
                             Автор
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Цена
-                        </th>
-                        <th scope="col" class="px-6 py-3">
                             Переведен
                         </th>
                     </tr>
@@ -133,10 +130,7 @@
                                 @endif
                             </td>
                             <td class="px-6 py-4">
-                                {{$item->locked_by}}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{$item->price}}
+                                {{$item->author}}
                             </td>
                             <td class="px-6 py-4">
                                 {{$item->created_at}}

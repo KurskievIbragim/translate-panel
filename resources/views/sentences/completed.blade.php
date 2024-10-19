@@ -36,9 +36,7 @@
                     <th scope="col" class="px-6 py-3">
                         Автор
                     </th>
-                    <th scope="col" class="px-6 py-3">
-                        Цена
-                    </th>
+                    
                     <th scope="col" class="px-6 py-3">
                         Переведен
                     </th>
@@ -46,7 +44,6 @@
                 </thead>
                 <tbody>
                 @foreach($sentencesTranslateCompleted as $item)
-                    @foreach($translates as $translate)
                     <tr class="bg-white border-b">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                             {{$item->id}}
@@ -55,19 +52,15 @@
                             {{$item->sentence}}
                         </td>
                         <td class="px-6 py-4">
-                            {{$item->translation}}
+                            Автор
                         </td>
                         <td class="px-6 py-4">
                             {{$item->locked_by}}
                         </td>
                         <td class="px-6 py-4">
-                            {{$item->price}}
-                        </td>
-                        <td class="px-6 py-4">
-                            {{$translate->created_at}}
+                            {{$item->created_at}}
                         </td>
                     </tr>
-                    @endforeach
                 @endforeach
                 </tbody>
             </table>
