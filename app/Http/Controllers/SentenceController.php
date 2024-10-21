@@ -91,15 +91,9 @@ class SentenceController extends Controller
             });
         }
 
-        $sentencesTranslate = Sentence::query()->where('status', 1)->orderBy('id', 'desc')->paginate(10);
+        $sentencesTranslate = Sentence::query()->with(['translations', 'author'])->where('status', 1)->orderBy('id', 'desc')->paginate(10);
         $users = User::query()->where('role', 3)->get();
 
-
-        $translates = [];
-        foreach ($sentencesTranslate as $translate) {
-            $translates = Translate::query()->where('sentence_id', $translate->id)->get();
-
-        }
 
 
         if(\auth()->user()->role) {
@@ -109,11 +103,9 @@ class SentenceController extends Controller
         $deletedSentences = Translate::query()->where('deleted_at', '!=', null)->get();
 
 
-
         return view('translate', [
             'sentence' => $sentence,
             'sentencesTranslate' => $sentencesTranslate,
-            'translates' => $translates,
             'users' => $users,
             'sentences' => $sentences,
             'completedSentences' => $completedSentences,

@@ -13,19 +13,17 @@ class HomeController extends Controller
     public function index()
     {
         $sentences = Sentence::all();
-        $sentencesTranslate = Sentence::query()->where('status', 1)->orderBy('id', 'desc')->paginate(10);
-        $sentencesTranslateCompleted = Sentence::query()->where('status', 2)->orderBy('id', 'desc')->paginate(10);
+        $sentencesTranslate = Sentence::with(['translations', 'author'])
+            ->where('status', 1)
+            ->orderBy('id', 'desc')
+            ->paginate(30);
+        $sentencesTranslateCompleted = Sentence::query()->where('status', 2)->orderBy('id', 'desc')->paginate(30);
 
         $users = User::query()->where('role', 3)->get();
 
-        $translates = [];
-
-        foreach ($sentencesTranslate as $translate) {
-            $translates = Translate::query()->where('sentence_id', $translate->id)->get();
-        }
 
 
-        return view('welcome' , compact('sentences', 'users', 'sentencesTranslate', 'translates', 'sentencesTranslateCompleted'));
+        return view('welcome' , compact('sentences', 'users', 'sentencesTranslate', 'sentencesTranslateCompleted'));
     }
 
     public function deleteSentences(Sentence $sentence)
@@ -38,20 +36,14 @@ class HomeController extends Controller
 
 
         $sentences = Sentence::all();
-        $sentencesTranslate = Sentence::query()->where('status', 1)->orderBy('id', 'desc')->paginate(10);
+        $sentencesTranslate = Sentence::with(['translations', 'author'])->where('status', 1)->orderBy('id', 'desc')->paginate(10);
         $sentencesTranslateCompleted = Sentence::query()->where('status', 2)->orderBy('id', 'desc')->paginate(10);
 
         $users = User::query()->where('role', 3)->get();
 
 
-        $translates = [];
 
-        foreach ($sentencesTranslate as $translate) {
-            $translates = Translate::query()->where('sentence_id', $translate->id)->get();
-        }
-
-
-        return view('sentences.completed', compact('sentencesTranslateCompleted', 'translates', 'sentences', 'users'));
+        return view('sentences.completed', compact('sentencesTranslateCompleted', 'sentences', 'users'));
     }
 
     public function search(Request $request)

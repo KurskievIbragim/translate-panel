@@ -71,7 +71,7 @@
         <div class="container mx-auto p-6 flex flex-col justify-between mx-8">
             <div class="flex items-center w-full justify-between">
                 <div>
-                    <h3 class="mb-8 px-6">Предложения в процессе {{$sentencesTranslate->count()}}:</h3>
+                    <h3 class="mb-8 px-6">Отправленно на проверку корректору {{$sentencesTranslate->count()}}:</h3>
                 </div>
                 <div>
                     <form class="flex items-center max-w-sm mx-auto p-6" action="{{ route('sentences.search') }}" method="GET">
@@ -107,16 +107,12 @@
                             Автор
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Цена
-                        </th>
-                        <th scope="col" class="px-6 py-3">
                             Переведен
                         </th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($sentencesTranslate as $item)
-                        @foreach($translates as $translate) @endforeach
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{$item->id}}
@@ -125,19 +121,43 @@
                                 {{$item->sentence}}
                             </td>
                             <td class="px-6 py-4">
-                                {{$translate->translation}}
+                                <!-- Перебираем все переводы предложения -->
+                                @if($item->translations->isNotEmpty())
+                                    @foreach($item->translations as $translation)
+                                        <div>
+                                            <!-- Перевод предложения -->
+                                            {{$translation->translation}}
+                                        </div>
+                                    @endforeach
+                                @else
+                                    Нет перевода
+                                @endif
+                            </td>
+
+                            <td class="px-6 py-4">
+                                <!-- Перебираем все переводы предложения -->
+                                @if($item->translations->isNotEmpty())
+                                    @foreach($item->translations as $translation)
+                                        <div>
+                                            <!-- Автор перевода -->
+                                            @if($translation->user)
+                                                {{$translation->user->name}}
+                                            @else
+                                                (Автор неизвестен)
+                                            @endif
+                                        </div>
+                                    @endforeach
+                                @else
+                                    Нет перевода
+                                @endif
                             </td>
                             <td class="px-6 py-4">
-                                {{$item->locked_by}}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{$item->price}}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{$translate->created_at}}
+                                {{$item->created_at}}
                             </td>
                         </tr>
                     @endforeach
+
+
                     </tbody>
                 </table>
             </div>

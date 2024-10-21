@@ -67,14 +67,14 @@
                     <div class="w-1/2 mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600 ml-6">
                         <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
                             <label for="comment" class="sr-only">Введите предложение</label>
-                            <textarea id="comment" rows="4" class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Write a comment..." name="translation" required ></textarea>
+                            <textarea id="comment" rows="4" class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Впишите перевод" name="translation" required ></textarea>
                         </div>
                         <select name="user_id" style="opacity: 0;">
                             <option value="{{auth()->user()->id}}">{{auth()->user()->id}}</option>
                         </select>
                         <div class="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
                             <div class="sentence-price">
-                                <p>Стоимость перевода: <span class="text-green-900 focus:text-red-600 ...">{{$sentence->price}}</span> рублей</p>
+                                <p>Стоимость перевода: <span class="text-green-900 focus:text-red-600 ...">10</span> рублей</p>
                             </div>
                             <button type="submit" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
                                 Перевод
@@ -90,11 +90,18 @@
                     <div>
                         Переведено <strong class="text-green-900 focus:text-red-600 ...">{{$completedSentences->count()}}</strong> предложений!
                     </div>
+                    <div>
+                        <a class="flex flex-col items-center" style="cursor: pointer;">
+                            <img src="{{asset('img/icons/arrowright.svg')}}" alt="" style="width: 130px; height: 40px;">
+                            <span style="color: rgb(26 86 219)">показать</span>
+                        </a>
+                    </div>
                 </div>
 
                 <div class="bg-white p-6 rounded shadow-md  w-1/3 mx-8 flex justify-between items-center">
                     <div>
                         Отклонено <strong class="text-green-900 focus:text-red-600 ...">{{$deletedSentences->count()}}</strong>
+
                     </div>
                     <div>
                         <a href="{{route('users.index')}}" class="flex flex-col items-center" style="cursor: pointer;">
@@ -106,14 +113,9 @@
 
                 <div class="bg-white p-6 rounded shadow-md  w-1/3 mx-8 flex justify-between items-center">
                     <div>
-                        Сумма: <strong class="text-green-900 focus:text-red-600 ..."></strong>
+                        Заработано: <strong class="text-green-900 focus:text-red-600 ...">{{$completedSentences->count() * 10}} рублей</strong>
                     </div>
-                    <div>
-                        <a class="flex flex-col items-center" style="cursor: pointer;">
-                            <img src="{{asset('img/icons/arrowright.svg')}}" alt="" style="width: 130px; height: 40px;">
-                            <span style="color: rgb(26 86 219)">показать</span>
-                        </a>
-                    </div>
+
                 </div>
 
 
@@ -142,9 +144,7 @@
                                 <th scope="col" class="px-6 py-3">
                                     Автор
                                 </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Цена
-                                </th>
+
                                 <th scope="col" class="px-6 py-3">
                                     Переведен
                                 </th>
@@ -155,7 +155,6 @@
                             </thead>
                             <tbody>
                             @foreach($sentencesTranslate as $item)
-                                @foreach($translates as $translate)
                                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{$item->id}}
@@ -163,22 +162,39 @@
                                     <td class="px-6 py-4">
                                         {{$item->sentence}}
                                     </td>
-                                    @if(isset($translate->translation))
-                                        <td class="px-6 py-4">
-                                            {{$translate->translation}}
-                                        </td>
-                                    @endif
                                     <td class="px-6 py-4">
-                                        {{$item->locked_by}}
+                                        @if($item->translations->isNotEmpty())
+                                            @foreach($item->translations as $translation)
+                                                <div>
+                                                    <!-- Перевод предложения -->
+                                                    {{$translation->translation}}
+                                                </div>
+                                            @endforeach
+                                        @else
+                                            Нет перевода
+                                        @endif
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{$item->price}}
+                                        <!-- Перебираем все переводы предложения -->
+                                        @if($item->translations->isNotEmpty())
+                                            @foreach($item->translations as $translation)
+                                                <div>
+                                                    <!-- Автор перевода -->
+                                                    @if($translation->user)
+                                                        {{$translation->user->name}}
+                                                    @else
+                                                        (Автор неизвестен)
+                                                    @endif
+                                                </div>
+                                            @endforeach
+                                        @else
+                                            Нет перевода
+                                        @endif
                                     </td>
-                                    @if(isset($translate->created_at))
-                                        <td class="px-6 py-4">
-                                            {{$translate->created_at}}
-                                        </td>
-                                    @endif
+                                    <td class="px-6 py-4">
+                                        {{$item->created_at}}
+                                    </td>
+
                                     <td class="px-6 py-4">
                                         <form action="{{route('sentences.approve', $item->id)}}" method="post">
                                             @csrf
@@ -191,7 +207,6 @@
                                         </form>
                                     </td>
                                 </tr>
-                                @endforeach
                             @endforeach
                             </tbody>
                         </table>
