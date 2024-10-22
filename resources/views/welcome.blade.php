@@ -160,10 +160,17 @@
 
                     </tbody>
                 </table>
+
+                <div class="mt-4">
+                    <a class="text-red-800 text-xl	" href="{{route('sentence.district')}}">Показать отклоненные предложения</a>
+                </div>
             </div>
+
 
         </div>
     @endif
+
+
 
 
 

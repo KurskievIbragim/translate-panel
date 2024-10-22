@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('translates', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->text('translation');
-            $table->softDeletes();
-            $table->timestamps();
+        Schema::table('translates', function (Blueprint $table) {
+            $table->bigInteger('sentence_id')->unsigned()->change();
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('translates');
+        Schema::table('translates', function (Blueprint $table) {
+            Schema::dropColumn('sentence_id');
+        });
     }
 };

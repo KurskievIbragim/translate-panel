@@ -83,4 +83,17 @@ class HomeController extends Controller
     }
 
 
+    public function districtSentences()
+    {
+        // Получение всех удаленных переводов, включая связанные предложения и авторов
+        $sentences = Translate::withTrashed()
+            ->with(['sentence', 'user']) // Загрузка предложения и автора перевода
+            ->whereNotNull('deleted_at')
+            ->get();
+
+        return view('sentences.district', [
+            'sentences' => $sentences,
+        ]);
+    }
+
 }
