@@ -50,7 +50,7 @@
 
                            @if(auth()->user()->role == 1)
                                 <x-dropdown-link :href="route('sentence.moderate')">
-                                    {{ __('Модерация') }}
+                                    {{ __('Модераци') }}
                                 </x-dropdown-link>
                            @endif
                         </form>

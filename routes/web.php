@@ -44,6 +44,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/translate', [SentenceController::class, 'getSentence'])->name('translate');
     Route::post('/translate', [SentenceController::class, 'saveTranslation'])->name('translate.save');
+
+    Route::get('/dashboard', [App\Http\Controllers\ProfileController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+
 });
 
 require __DIR__.'/auth.php';
